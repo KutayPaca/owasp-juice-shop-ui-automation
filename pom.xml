@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.qubix</groupId>
+    <artifactId>owasp-juice-shop</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Sürümleri tek bir yerden yönetmek için değişkenler tanımlıyoruz -->
+        <selenium.version>4.35.0</selenium.version>
+        <cucumber.version>7.20.1</cucumber.version>
+        <testng.version>7.11.0</testng.version>
+    </properties>
+
+    <dependencies>
+        <!-- 1. Selenium Java: Tarayıcıyı yönetmek için gereken temel API -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- 2. Cucumber Java: @Given, @When, @Then gibi anotasyonları Java metodlarıyla eşleştirmek için -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 3. Cucumber-TestNG Entegrasyonu: Cucumber senaryolarını TestNG motorunun koşabilmesi için şart olan köprü -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 4. TestNG: Test suitlerini, XML yapılandırmasını ve assertion kontrollerini yöneten motor -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,23 @@
+# Maven derleme çıktıları
+target/
+*.class
+
+# IntelliJ IDEA özel ayarları
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse / VS Code kalıntıları
+.classpath
+.project
+.settings/
+.vscode/
+
+# İşletim sistemi kalıntıları
+.DS_Store
+Thumbs.db
+
+# Log ve geçici dosyalar
+*.log
