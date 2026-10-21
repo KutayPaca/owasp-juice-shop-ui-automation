@@ -1,12 +1,17 @@
 package stepdefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.Assert;
+import pages.HomePage;
 import utilities.ConfigurationReader;
 import utilities.Driver;
 
 public class JuiceShopHomeSteps {
+
+    HomePage homePage =  new HomePage();
 
     @Given("kullanici juice shop uygulamasina girer")
     public void kullanici_juice_shop_uygulamasina_girer() {
@@ -27,5 +32,24 @@ public class JuiceShopHomeSteps {
         //Ekranda okunan başlığın içinde feature dosyasından gelen metin geçiyor mu kontrolünü yapar.
         Assert.assertTrue(gercekBaslik.contains(beklenenKelime),
                 "HATA: Sayfa başlığı beklenen metni içermiyor! Görünen başlık: " + gercekBaslik);
+    }
+
+    @When("kullanici acilis popuplarini kapatir")
+    public void kullanici_acilis_popuplarini_kapatir() {
+        //bütün mantığı HomePage içerisine kuruldu buraya teker teker yazılmadı
+        homePage.ilkAcilisEngelleriniKapat();
+    }
+
+    @And("kullanici Account menusunden Login sayfasina gider")
+    public void kullanici_account_menusunden_login_sayfasina_gider(){
+        homePage.loginSayfasinaGit();
+    }
+
+    @Then("kullanici Login sayfasinda oldugunu dogrular")
+    public void kullanici_login_sayfasinda_oldugunu_dogrular(){
+        // tarayıcının o anki url sini gönderiyoruz
+        String currentUrl = Driver.getDriver().getCurrentUrl();
+        // url içerisinde login kelimesi geçiyor mu logine yönlendirildik mi diye doğruluyoruz
+        Assert.assertTrue(currentUrl.contains("login"),"Login sayfasına gidilemedi! Mevcut URL: " + currentUrl);
     }
 }
