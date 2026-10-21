@@ -1,6 +1,7 @@
 package utilities;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -41,8 +42,21 @@ public class ElementHelper {
     }
     //metin okuma metodu
     public String getText(By locator){
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));//biliyon artık
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));//biliyon artık
         return element.getText(); //elementin tagler arasındaki metninini alır ve yollar
+    }
+    // JavaScript kullanarak doğrudan DOM üzerinden tıklama yapar (Önündeki katmanları yok sayar)
+    public void clickWithJS(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+    }
+
+    // Element ekranın altında kaldıysa oraya doğru sayfayı kaydırır
+    public void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
     //görünürlük kontrol metodu
     //bir elementin ekranda olup olmadığını kontrol eder sonuç olarak true yada false döner

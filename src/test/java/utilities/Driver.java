@@ -34,6 +34,7 @@ public class Driver {
                     //Invalid Status code=403 text=Forbidden veya Connection reset / Remote origin error
                     //Çözüm tarayıcıya şunun gönderilmesini şart koşmuş:
                     chromeOptions.addArguments("--remote-allow-origins=*");
+                    chromeOptions.addArguments("--lang=en"); // Tarayıcı dilini doğrudan İngilizce yapar
                     driver = new ChromeDriver(chromeOptions);
                     break;
 

@@ -8,6 +8,13 @@ import io.cucumber.testng.CucumberOptions;
         features = "src/test/resources/features" ,
         //bu featureların java kodlarının hangi pakette olduklarını belirtiyoruz
         glue = "stepdefinitions",
+
+        plugin = {
+                "pretty",
+                "html:target/cucumber-reports/cucumber.html",
+                "json:target/cucumber-reports/cucumber.json"
+        },
+
         //feature dosyasındaki adımların java kodları yazımışmı diye bakar
         //eksik adım varsa hazır java metotlarını konsolda üretir
         dryRun = false
