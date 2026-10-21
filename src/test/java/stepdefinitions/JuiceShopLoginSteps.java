@@ -18,4 +18,16 @@ public class JuiceShopLoginSteps {
         boolean isLogged = loginPage.cikisButonuGorunurMu();
         Assert.assertTrue(isLogged, "HATA: Başarılı giriş yapılamadı, Log out butonu menüde görünmüyor!");
     }
+    @Then("kullanici hata mesajinin {string} icerdigini dogrular")
+    public void kullanici_hata_mesajinin_icerdigini_dogrular(String beklenenHata) {
+        //ekranda beliren gerçek hata metnini çekiyoruz
+        String gercekHata = loginPage.getHataMesajMetni();
+        // ekranda beliren hata gerçek mesajın içinde geçiyor mu kıyaslıyoruz
+        Assert.assertTrue(gercekHata.contains(beklenenHata),
+                "HATA: Beklenen hata mesajı görüntülenemedi! Ekranda görünen: " + gercekHata);
+    }
+    //Neden Assert.assertEquals yerine contains kullandık
+    //metin kutularının başında veya sonunda görünmeyen boşluklar bulunabilir.
+    // Tam eşitlik arandığında görünmez bir boşluk testi patlatabilir.
+    //containsle mesajın özü doğrulanmış olur
 }

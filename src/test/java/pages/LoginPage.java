@@ -20,6 +20,9 @@ public class LoginPage {
     private final By accountButton = By.id("navbarAccount");
     private final By logoutButton = By.id("navbarLogoutButton");
 
+    // Negatif doğrulama elementi
+    private final By errorMessage = By.cssSelector(".error");
+
     public void bilgileriDoldurVeGirisYap(String email, String password){
         elementHelper.sendKeys(emailInput,email);
         elementHelper.sendKeys(passwordInput,password);
@@ -32,4 +35,10 @@ public class LoginPage {
         //açılan menüde logout butonu belirdimi kontrol ederiz
         return elementHelper.isDisplayed(logoutButton);
     }
+
+    public String getHataMesajMetni(){
+        //getText element görünene kadar bekletir
+        return elementHelper.getText(errorMessage);
+    }
+
 }

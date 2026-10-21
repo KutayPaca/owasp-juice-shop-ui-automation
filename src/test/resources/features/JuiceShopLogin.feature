@@ -5,3 +5,10 @@ Feature: Juice Shop Login Islemleri
     And kullanici Account menusunden Login sayfasina gider
     When kullanici email alanina "admin@juice-sh.op" ve sifre alanina "admin123" yazar
     Then kullanici basariyla giris yapildigini dogrular
+
+  Scenario: Gecersiz kullanici bilgileri ile giris yapilamamali
+    Given kullanici juice shop uygulamasina girer
+    And kullanici acilis popuplarini kapatir
+    And kullanici Account menusunden Login sayfasina gider
+    When kullanici email alanina "gecersiz_hesap@test.com" ve sifre alanina "yanlisSifre123" yazar
+    Then kullanici hata mesajinin "Invalid email or password." icerdigini dogrular
