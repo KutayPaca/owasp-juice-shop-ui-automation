@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.Keys;
+import java.util.List;
 
 import java.time.Duration;
 
@@ -70,6 +72,18 @@ public class ElementHelper {
             //eleman bulunmadığı için false veriyoruz
             return false;
         }
+    }
+    // Klavyeden ENTER gibi herhangi bir tuş ile birlikte metin yazmak için
+    public void sendKeysWithKey(By locator, String text, Keys key) {
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        element.clear();
+        element.sendKeys(text, key);
+    }
+
+    // Ekranda bir kurala uyan tüm elementleri liste halinde almak için
+    public List<WebElement> getElements(By locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return driver.findElements(locator);
     }
 
 }
