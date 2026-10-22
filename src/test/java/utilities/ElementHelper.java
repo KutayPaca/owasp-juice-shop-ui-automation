@@ -86,4 +86,13 @@ public class ElementHelper {
         return driver.findElements(locator);
     }
 
+    // URL belirtilen metni içerene kadar bekler (en fazla belirlenen timeout süresi kadar)
+    public boolean waitForUrlContains(String text) {
+        try {
+            return wait.until(ExpectedConditions.urlContains(text));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

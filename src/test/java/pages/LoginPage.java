@@ -23,6 +23,9 @@ public class LoginPage {
     // Negatif doğrulama elementi
     private final By errorMessage = By.cssSelector(".error");
 
+    // login sayfasındaki formun altındaki Not yet a customer bağlantısı
+    private final By newCustomerLink = By.cssSelector("#newCustomerLink a");
+
     public void bilgileriDoldurVeGirisYap(String email, String password){
         elementHelper.sendKeys(emailInput,email);
         elementHelper.sendKeys(passwordInput,password);
@@ -39,6 +42,13 @@ public class LoginPage {
     public String getHataMesajMetni(){
         //getText element görünene kadar bekletir
         return elementHelper.getText(errorMessage);
+    }
+
+    public void kayitOlSayfasinaGit(){
+        // Elementin olduğu yere odaklan ve JS ile katman engeline takılmadan tıkla
+        // Veya standart click öncesi scroll yap:
+        elementHelper.scrollToElement(newCustomerLink);
+        elementHelper.clickWithJS(newCustomerLink);
     }
 
 }
