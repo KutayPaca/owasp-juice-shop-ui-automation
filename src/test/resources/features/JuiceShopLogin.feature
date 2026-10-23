@@ -1,14 +1,27 @@
 Feature: Juice Shop Login Islemleri
-  Scenario: Gecerli kullanici bilgileri ile basariyla giris yapilabilmeli
+
+  Background:
     Given kullanici juice shop uygulamasina girer
     And kullanici acilis popuplarini kapatir
     And kullanici Account menusunden Login sayfasina gider
+
+  @smoke @positive
+  Scenario: Gecerli kullanici bilgileri ile basariyla giris yapilabilmeli
     When kullanici email alanina "admin@juice-sh.op" ve sifre alanina "admin123" yazar
     Then kullanici basariyla giris yapildigini dogrular
 
-  Scenario: Gecersiz kullanici bilgileri ile giris yapilamamali
-    Given kullanici juice shop uygulamasina girer
-    And kullanici acilis popuplarini kapatir
-    And kullanici Account menusunden Login sayfasina gider
-    When kullanici email alanina "gecersiz_hesap@test.com" ve sifre alanina "yanlisSifre123" yazar
-    Then kullanici hata mesajinin "Invalid email or password." icerdigini dogrular
+  @negative @datadriven
+  Scenario Outline: Gecersiz veya kayitli olmayan bilgilerle giris denendiginde hata alinmali
+    When kullanici email alanina "<email>" ve sifre alanina "<sifre>" yazar
+    Then kullanici hata mesajinin "<beklenenHata>" icerdigini dogrular
+
+    Examples:
+      | email                   | sifre          | beklenenHata               |
+      | gecersiz_hesap@test.com | yanlisSifre123 | Invalid email or password. |
+      | kayitliolmayan@test.com | YanlisSifre.1  | Invalid email or password. |
+      | admin@juice-sh.op       | 99999999       | Invalid email or password. |
+
+  @negative
+  Scenario: Bos alan birakildiginda login butonu pasif kalmali
+    When kullanici email alanini ve sifre alanini bos birakir
+    Then kullanici login butonunun tiklanamaz oldugunu dogrular

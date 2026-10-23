@@ -30,4 +30,14 @@ public class JuiceShopLoginSteps {
     //metin kutularının başında veya sonunda görünmeyen boşluklar bulunabilir.
     // Tam eşitlik arandığında görünmez bir boşluk testi patlatabilir.
     //containsle mesajın özü doğrulanmış olur
+    @Then("kullanici login butonunun tiklanamaz oldugunu dogrular")
+    public void kullanici_login_butonunun_tiklanamaz_oldugunu_dogrular() {
+        boolean isEnabled = loginPage.isLoginButtonEnabled();
+        Assert.assertFalse(isEnabled, "HATA: E-posta ve şifre boş bırakılmasına rağmen Login butonu hala aktif!");
+    }
+
+    @When("kullanici email alanini ve sifre alanini bos birakir")
+    public void kullanici_email_alanini_ve_sifre_alanini_bos_birakir() {
+        loginPage.sadeceBilgileriDoldur("", "");
+    }
 }

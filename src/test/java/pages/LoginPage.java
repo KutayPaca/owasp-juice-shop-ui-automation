@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import utilities.Driver;
 import utilities.ElementHelper;
 
 public class LoginPage {
@@ -27,9 +28,13 @@ public class LoginPage {
     private final By newCustomerLink = By.cssSelector("#newCustomerLink a");
 
     public void bilgileriDoldurVeGirisYap(String email, String password){
-        elementHelper.sendKeys(emailInput,email);
-        elementHelper.sendKeys(passwordInput,password);
-        elementHelper.click(loginButton);
+        elementHelper.sendKeys(emailInput, email);
+        elementHelper.sendKeys(passwordInput, password);
+
+        // Eğer login butonu aktifse tıkla pasifse atla
+        if (isLoginButtonEnabled()) {
+            elementHelper.click(loginButton);
+        }
     }
 
     public boolean cikisButonuGorunurMu(){
@@ -51,4 +56,14 @@ public class LoginPage {
         elementHelper.clickWithJS(newCustomerLink);
     }
 
+    //Butonun HTML disabled özelliğini doğrulamak için
+    public boolean isLoginButtonEnabled() {
+        return Driver.getDriver().findElement(loginButton).isEnabled();
+    }
+
+    //sadece bilgi yazan ayrı bir metot
+    public void sadeceBilgileriDoldur(String email, String password){
+        elementHelper.sendKeys(emailInput, email);
+        elementHelper.sendKeys(passwordInput, password);
+    }
 }

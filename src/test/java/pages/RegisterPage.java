@@ -24,6 +24,8 @@ public class RegisterPage {
     private final By registerButton = By.id("registerButton");
     //kayıt tamamlandığında ekranın altında çıkan bildirim çubuğu
     private final By successSnackBar = By.cssSelector(".mat-mdc-snack-bar-container, .mat-simple-snack-bar-content");
+    // Şifre uyuşmazlığında çıkan Angular error locator'ı
+    private final By passwordMismatchError = By.cssSelector(".mat-mdc-form-field-error, mat-error");
 
     //aksiyon metodu
     public void kayitFormunuDoldur(String email, String password, String securityAnswer){
@@ -47,8 +49,23 @@ public class RegisterPage {
         elementHelper.clickWithJS(registerButton);
     }
 
+    public void sifreleriUyusmayanBilgileriDoldur(String email, String password, String repeatPassword) {
+        elementHelper.sendKeys(emailInput, email);
+        elementHelper.sendKeys(passwordInput, password);
+        elementHelper.sendKeys(repeatPasswordInput, repeatPassword);
+        elementHelper.scrollToElement(securityQuestionDropdown);
+        elementHelper.clickWithJS(securityQuestionDropdown);
+        elementHelper.click(firstSecurtyQuestionOption);
+        elementHelper.sendKeys(securityAnswerInput, "Ankara");
+    }
+
     public boolean basariBildirimiGorunduMu(){
         // SnackBar ekranda belirdi mi kontrol eder
         return elementHelper.isDisplayed(successSnackBar);
+    }
+
+    public String getPasswordMismatchErrorMessage() {
+        // SnackBar ekranda belirdi mi kontrol eder
+        return elementHelper.getText(passwordMismatchError);
     }
 }

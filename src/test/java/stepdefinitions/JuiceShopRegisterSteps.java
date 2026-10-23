@@ -28,6 +28,18 @@ public class JuiceShopRegisterSteps {
         registerPage.kayitFormunuDoldur(dinamikEmail, sifre, guvenlikCevabi);
     }
 
+    @When("kullanici email alanina {string} sifreye {string} ve sifre tekrarina {string} yazar")
+    public void kullanici_email_alanina_sifreye_ve_sifre_tekrarina_yazar(String email, String sifre, String repeatSifre) {
+        registerPage.sifreleriUyusmayanBilgileriDoldur(email, sifre, repeatSifre);
+    }
+
+    @Then("kullanici kayit ekraninda {string} hata mesajini gorur")
+    public void kullanici_kayit_ekraninda_hata_mesajini_gorur(String beklenenHata) {
+        String gercekHata = registerPage.getPasswordMismatchErrorMessage();
+        Assert.assertTrue(gercekHata.contains(beklenenHata),
+                "HATA: Beklenen hata mesajı görüntülenemedi! Görünen: " + gercekHata);
+    }
+
     @Then("kullanici kaydin basariyla tamamlandigini dogrular")
     public void kullanici_kaydin_basariyla_tamamlandigini_dogrular() {
         //Önce başarılı kayıt bildiriminin ekranda belirmesini bekle
