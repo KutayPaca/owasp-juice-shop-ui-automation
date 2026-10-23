@@ -3,7 +3,7 @@ Feature: Juice Shop Uctan Uca Siparis Tamamlama (Checkout E2E)
     Given kullanici juice shop uygulamasina girer
     And kullanici acilis popuplarini kapatir
     And kullanici Account menusunden Login sayfasina gider
-    When kullanici email alanina "admin@juice-sh.op" ve sifre alanina "admin123" yazar
+    When kullanici gecerli kullanici bilgileri ile giris yapar
     And kullanici ilk urunu sepete ekler
     And kullanici sepet sayfasina gider
     And kullanici sepeti onaylayıp checkout adimina gecer

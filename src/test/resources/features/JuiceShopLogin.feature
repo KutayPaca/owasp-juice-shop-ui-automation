@@ -7,7 +7,7 @@ Feature: Juice Shop Login Islemleri
 
   @smoke @positive
   Scenario: Gecerli kullanici bilgileri ile basariyla giris yapilabilmeli
-    When kullanici email alanina "admin@juice-sh.op" ve sifre alanina "admin123" yazar
+    When kullanici gecerli kullanici bilgileri ile giris yapar
     Then kullanici basariyla giris yapildigini dogrular
 
   @negative @datadriven

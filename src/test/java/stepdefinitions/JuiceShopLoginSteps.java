@@ -4,9 +4,17 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pages.LoginPage;
+import utilities.TestData;
 
 public class JuiceShopLoginSteps {
     LoginPage loginPage =  new LoginPage();
+
+    @When("kullanici gecerli kullanici bilgileri ile giris yapar")
+    public void kullanici_gecerli_kullanici_bilgileri_ile_giris_yapar() {
+        String email = TestData.getProperty("admin_email");
+        String password = TestData.getProperty("admin_password");
+        loginPage.bilgileriDoldurVeGirisYap(email, password);
+    }
 
     @When("kullanici email alanina {string} ve sifre alanina {string} yazar")
     public void kullanici_email_alanina_ve_sifre_alanina_yazar(String email, String password) {
