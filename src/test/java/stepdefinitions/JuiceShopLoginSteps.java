@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
@@ -48,4 +49,16 @@ public class JuiceShopLoginSteps {
     public void kullanici_email_alanini_ve_sifre_alanini_bos_birakir() {
         loginPage.sadeceBilgileriDoldur("", "");
     }
+
+    @And("kullanici oturumu kapatir")
+    public void kullanici_oturumu_kapatir() {
+        loginPage.oturumuKapat();
+    }
+
+    @Then("kullanici basariyla cikis yapildigini dogrular")
+    public void kullanici_basariyla_cikis_yapildigini_dogrular() {
+        boolean cikisYapildi = loginPage.cikisBasariliMi();
+        Assert.assertTrue(cikisYapildi, "HATA: Oturum kapatilamadi, Account menusunde Login butonu goruntulenemedi!");
+    }
+
 }

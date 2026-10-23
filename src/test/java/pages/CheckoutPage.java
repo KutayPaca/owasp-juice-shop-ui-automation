@@ -49,19 +49,17 @@ public class CheckoutPage {
 
     //sayfadaki ilk ürünün add to basket butonuna tıklar
     //scrollToElement ekranda görünür olmasını clickWithJs ise angular bannerları engeller
-    public void ilkUrunuSepeteEkle(){
-        //login sonrası ekranda kalan eski bir bildirim varsa önce onu bi kapat
-        try {
-            if (elementHelper.isDisplayed(snackBarCloseButton)) {
-                elementHelper.clickWithJS(snackBarCloseButton);
-            }
-        } catch (Exception ignored) {}
+
+    public void ilkUrunuSepeteEkle() {
+        //login sonrası ana sayfa ürün listesinin yüklenmesini garantiye al
+        wait.until(ExpectedConditions.urlContains("search"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(firstProductAddToBasketButton));
 
         //Ürünü sepete ekle
         elementHelper.scrollToElement(firstProductAddToBasketButton);
         elementHelper.clickWithJS(firstProductAddToBasketButton);
 
-        //sepet ikonu üzerindeki sayacın 0dan farklı olmasını bekle
+        //Sepet ikonu üzerindeki sayacın 0dan farklı olmasını bekle
         wait.until(driver -> {
             try {
                 String countText = driver.findElement(basketCounterBadge).getText().trim();
@@ -71,11 +69,14 @@ public class CheckoutPage {
             }
         });
 
-        //Placed into basket bildirimini kapat
+        //Açılan Placed into basket bildirimini kapat
         try {
-            elementHelper.clickWithJS(snackBarCloseButton);
+            if (!Driver.getDriver().findElements(snackBarCloseButton).isEmpty()) {
+                elementHelper.clickWithJS(snackBarCloseButton);
+            }
         } catch (Exception ignored) {}
     }
+
     //sepet sayfasına geçiş yapar
     public void sepeteGit(){
         // JS click yerine normal click kullanıyoruz ki Angular Router state'i düzgün taşısın

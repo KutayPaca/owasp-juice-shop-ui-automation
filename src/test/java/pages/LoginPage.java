@@ -1,15 +1,23 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utilities.Driver;
 import utilities.ElementHelper;
+
+import java.time.Duration;
+import java.util.List;
 
 public class LoginPage {
 
     private ElementHelper elementHelper;
+    private final WebDriverWait wait;
 
     public LoginPage(){
         this.elementHelper = new ElementHelper();
+        this.wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
     }
 
     //locators
@@ -27,6 +35,8 @@ public class LoginPage {
     // login sayfasındaki formun altındaki Not yet a customer bağlantısı
     private final By newCustomerLink = By.cssSelector("#newCustomerLink a");
 
+    private final By navbarLoginButton = By.id("navbarLoginButton");
+
     public void bilgileriDoldurVeGirisYap(String email, String password){
         elementHelper.sendKeys(emailInput, email);
         elementHelper.sendKeys(passwordInput, password);
@@ -42,6 +52,23 @@ public class LoginPage {
         elementHelper.click(accountButton);
         //açılan menüde logout butonu belirdimi kontrol ederiz
         return elementHelper.isDisplayed(logoutButton);
+    }
+
+    public void oturumuKapat() {
+        // Eger menu zaten acik degilse Account butonuna basarak ac
+        List<WebElement> logoutBtns = Driver.getDriver().findElements(logoutButton);
+        if (logoutBtns.isEmpty() || !logoutBtns.get(0).isDisplayed()) {
+            elementHelper.click(accountButton);
+        }
+        elementHelper.click(logoutButton);
+
+        // Logout sonrasi eski menunun kapandigini dogrula
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(logoutButton));
+    }
+
+    public boolean cikisBasariliMi() {
+        elementHelper.click(accountButton);
+        return elementHelper.isDisplayed(navbarLoginButton);
     }
 
     public String getHataMesajMetni(){

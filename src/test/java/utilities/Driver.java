@@ -53,7 +53,7 @@ public class Driver {
             //Tarayıcıyı tam ekran yap
             driver.manage().window().maximize();
             // Sayfadaki bir element hemen yüklenmezse anında hata verme 10 saniye doma bekle
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
         //zaten açık tarayıcı varsa if bloğuna girmez
         return driver;

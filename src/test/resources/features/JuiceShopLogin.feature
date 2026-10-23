@@ -10,6 +10,12 @@ Feature: Juice Shop Login Islemleri
     When kullanici gecerli kullanici bilgileri ile giris yapar
     Then kullanici basariyla giris yapildigini dogrular
 
+  @smoke @logout
+  Scenario: Giris yapmis kullanici basariyla cikis yapabilmeli
+    When kullanici gecerli kullanici bilgileri ile giris yapar
+    And kullanici oturumu kapatir
+    Then kullanici basariyla cikis yapildigini dogrular
+
   @negative @datadriven
   Scenario Outline: Gecersiz veya kayitli olmayan bilgilerle giris denendiginde hata alinmali
     When kullanici email alanina "<email>" ve sifre alanina "<sifre>" yazar
