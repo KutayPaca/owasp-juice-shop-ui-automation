@@ -30,4 +30,10 @@ public class JuiceShopSearchSteps {
                     "HATA: Ürün adında '" + beklenenKelime + "' kelimesi bulunamadı! Gelen ürün adı: " + urunAdi);
         }
     }
+
+    @Then("arama sonucunda hicbir urunun listelenmedigini dogrular")
+    public void arama_sonucunda_hicbir_urunun_listelenmedigini_dogrular() {
+        boolean urunYok = homePage.hicUrunListelenmediMi();
+        Assert.assertTrue(urunYok, "HATA: Gecersiz arama yapilmasina ragmen ekranda urunler listelendi!");
+    }
 }

@@ -4,18 +4,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utilities.Driver;
 import utilities.ElementHelper;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage {
 
     private ElementHelper elementHelper;
+    private final WebDriverWait wait;
+
 
     public HomePage() {
         this.elementHelper = new ElementHelper();
+        this.wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
     }
 
     //LOCATORS (Elementlerin HTML'deki Adresleri)
@@ -69,6 +75,19 @@ public class HomePage {
         }
         return urunAdlari;
     }
+
+    public boolean hicUrunListelenmediMi() {
+        //anguların arama sayfasına yonlendirmesini bekle
+        elementHelper.waitForUrlContains("search");
+
+        //sayfadaki eski kartların domdan kalktığını doğrula
+        try {
+            return wait.until(ExpectedConditions.invisibilityOfElementLocated(productTitles));
+        } catch (Exception e) {
+            return Driver.getDriver().findElements(productTitles).isEmpty();
+        }
+    }
+
 }
 
 
